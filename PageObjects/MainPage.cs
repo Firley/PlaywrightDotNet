@@ -12,14 +12,14 @@ namespace PlaywrightTests.PageObjects
     public class MainPage : BasePage
     {
 
-        ILocator TabsButton => page.GetByRole(AriaRole.Link, new() { Name = "Tabs" });
+        ILocator LoginButton => page.GetByTestId("bignav").GetByRole(AriaRole.Link, new() { Name = "Log in" });
         public MainPage(IPage page) : base(page) { }
 
 
 
-    public async Task NavigateToExerciseTabsAsync()
+        public async Task OpenLoginPagesAsync()
         {
-          await TabsButton.ClickAsync();
+            await LoginButton.ClickAsync();
         }
 
 

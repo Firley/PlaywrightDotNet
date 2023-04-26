@@ -14,8 +14,5 @@ namespace PlaywrightTests.PageObjects
         {
             this.page = _page;
         }
-        public async Task CloseAd()
-        {
-        }
     }
 }
