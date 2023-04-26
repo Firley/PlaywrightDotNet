@@ -9,7 +9,6 @@
 	</Playwright>
 	<RunConfiguration>
 		<EnvironmentVariables>
-			<!--  -->
 			<env>Development</env>
 		</EnvironmentVariables>
 	</RunConfiguration>

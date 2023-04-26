@@ -9,12 +9,13 @@ namespace PlaywrightTests.PageObjects
 {
     public abstract class BasePage
     {
-        public readonly IPage _page;
-
-        public BasePage(IPage page)
+        public readonly IPage page;
+        public BasePage(IPage _page)
         {
-            _page = page;
+            this.page = _page;
         }
-
+        public async Task CloseAd()
+        {
+        }
     }
 }

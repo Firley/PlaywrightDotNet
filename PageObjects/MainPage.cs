@@ -12,7 +12,7 @@ namespace PlaywrightTests.PageObjects
     public class MainPage : BasePage
     {
 
-        ILocator TabsButton => _page.GetByRole(AriaRole.Link, new() { Name = "Tabs" });
+        ILocator TabsButton => page.GetByRole(AriaRole.Link, new() { Name = "Tabs" });
         public MainPage(IPage page) : base(page) { }
 
 

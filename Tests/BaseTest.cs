@@ -17,28 +17,21 @@ public class BaseTest : PageTest
     public BaseTest()
     {
         Configuration = BuildConfig.ConfigurationRoot;
-        Configuration.GetSection("LunchSettings").Bind(settings);
+        Configuration.GetSection("LaunchSettings").Bind(settings);
     }
-
-
 
     [SetUp]
     public async Task GoToPage()
     {
-        await Page.GotoAsync("");    
+        await Page.GotoAsync("");   
     }
 
     public override BrowserNewContextOptions ContextOptions()
     {
         return new BrowserNewContextOptions()
         {
-            ColorScheme = ColorScheme.Light,
-            ViewportSize = new()
-            {
-                Width = 1920,
-                Height = 1080
-            },
-            BaseURL = settings.Link
+            BaseURL = settings.Link,
+            IsMobile = true,
         };
     }
 
