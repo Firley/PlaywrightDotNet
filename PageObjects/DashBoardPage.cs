@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects
 {
-    public class DashBoardPage : BasePage
+    public class DashBoardPage
     {
-        public ILocator CreateNewTableTile => page.GetByTestId("create-board-tile");
+        public ILocator CreateNewTableTile => Page.GetByTestId("create-board-tile");
 
-        public DashBoardPage(IPage page) : base(page) { }
+        public IPage Page { get; }
+
+        public DashBoardPage(IPage page)
+        {
+            Page = page;
+        }
 
 
         public async Task OpenCreateNewTableFormAsync() 

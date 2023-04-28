@@ -48,19 +48,17 @@ public class BaseTest
         await page.GotoAsync(settings.Link);
         MainPage mainPage = new MainPage(page);
         mainPage.OpenLoginPagesAsync().Wait();
-        LoginPage loginPage = new LoginPage(page);
+        LoginPage loginPage = new LoginPage(Page);
         await loginPage.FillEmailAdress("sejak92669@soombo.com");
         await loginPage.ClickContinueButton();
         await loginPage.FillPassword("123Qwerty");
         await loginPage.ClickLoginButton();
 
-        await context.StorageStateAsync(new()
+        await Context.StorageStateAsync(new()
         {
             Path = "state.json"
         });
         // Dispose context once it is no longer needed.
-        await context.CloseAsync();
-
     }
 
 
