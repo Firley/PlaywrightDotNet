@@ -10,7 +10,7 @@ namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class BaseTest : PageTest
+public class BaseTest
 {
     private IConfiguration Configuration { get; set; }
     TestsSettings settings { get; set; } = new TestsSettings() { };
@@ -22,7 +22,7 @@ public class BaseTest : PageTest
         Configuration.GetSection("LaunchSettings").Bind(settings);
     }
 
-    [OneTimeSetUp]
+   [OneTimeSetUp]
     public async Task PrepareStorageStateAsync()
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
@@ -36,10 +36,10 @@ public class BaseTest : PageTest
                 browser = await playwright.Chromium.LaunchAsync(new() { Channel = "msedge", Headless = false });
                 break;
             case "firefox":
-                browser = await playwright.Firefox.LaunchAsync(new() { Headless = false });
+                browser = await playwright.Firefox.LaunchAsync(new() { Headless = true });
                 break;
             default:
-                browser = await playwright.Chromium.LaunchAsync(new() { Headless = false });
+                browser = await playwright.Chromium.LaunchAsync(new() { Headless = true });
                 break;
         }
         var context = await browser.NewContextAsync();
@@ -67,28 +67,23 @@ public class BaseTest : PageTest
     [Test]
     public async Task CreateNewTable()
     {
-        Page.GotoAsync("");
-        await Context.StorageStateAsync(new()
+        using var playwright = await Playwright.CreateAsync();
+        // Create a Chromium browser instance
+        await using var browser = await playwright.Chromium.LaunchAsync(new()
         {
-            Path = "state2.json"
+            Headless = false,
         });
-        DashBoardPage dashBoard = new DashBoardPage(Page);
-        await Context.StorageStateAsync(new()
-        {
-            Path = "state3.json"
-        });
-        dashBoard.OpenCreateNewTableFormAsync().Wait();
-    }
-    public override BrowserNewContextOptions ContextOptions()
-    {
-        var i = new BrowserNewContextOptions()
+        await using var context = await browser.NewContextAsync(new BrowserNewContextOptions()
         {
             BaseURL = settings.Link,
             IsMobile = true,
-            StorageStatePath = "state.json",
-        };
-        var t = 4;
-        return i;
+            StorageStatePath = "state.json"
+        });
+
+        var page = await context.NewPageAsync();
+        DashBoardPage dashBoard = new DashBoardPage(page);
+        dashBoard.OpenCreateNewTableFormAsync().Wait();
     }
+
 
 }
