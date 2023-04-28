@@ -14,6 +14,8 @@ namespace PlaywrightTests.cofiguration
         static BuildConfig()
         {
             var environmentName = Environment.GetEnvironmentVariable("env");
+            var BrowserType = Environment.GetEnvironmentVariable("BrowserType");
+
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{environmentName}.json", true)

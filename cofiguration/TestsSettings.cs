@@ -10,5 +10,7 @@ namespace PlaywrightTests.cofiguration
     {
         public string Link { get; set; } = null!;
         public string Browser { get; set; } = null!;
+        public bool Headless { get; set; } = false;
+
     }
 }
