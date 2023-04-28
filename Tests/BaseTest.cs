@@ -48,17 +48,19 @@ public class BaseTest
         await page.GotoAsync(settings.Link);
         MainPage mainPage = new MainPage(page);
         mainPage.OpenLoginPagesAsync().Wait();
-        LoginPage loginPage = new LoginPage(Page);
+        LoginPage loginPage = new LoginPage(page);
         await loginPage.FillEmailAdress("sejak92669@soombo.com");
         await loginPage.ClickContinueButton();
         await loginPage.FillPassword("123Qwerty");
         await loginPage.ClickLoginButton();
 
-        await Context.StorageStateAsync(new()
+        await context.StorageStateAsync(new()
         {
-            Path = "state.json"
+            Path = "playwright/.auth/state.json"
         });
         // Dispose context once it is no longer needed.
+        await context.CloseAsync();
+
     }
 
 
@@ -75,10 +77,11 @@ public class BaseTest
         {
             BaseURL = settings.Link,
             IsMobile = true,
-            StorageStatePath = "state.json"
+            StorageStatePath = "playwright/.auth/state.json"
         });
 
         var page = await context.NewPageAsync();
+        await page.GotoAsync(settings.Link);
         DashBoardPage dashBoard = new DashBoardPage(page);
         dashBoard.OpenCreateNewTableFormAsync().Wait();
     }
