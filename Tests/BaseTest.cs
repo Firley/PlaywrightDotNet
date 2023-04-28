@@ -4,6 +4,7 @@ using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using PlaywrightTests.cofiguration;
 using PlaywrightTests.PageObjects;
+using PlaywrightTests.PageObjects.Dashboard;
 using System.Configuration;
 
 namespace PlaywrightTests;
@@ -43,7 +44,6 @@ public class BaseTest
                 break;
         }
         var context = await browser.NewContextAsync();
-        // Create a new page inside context.
         var page = await context.NewPageAsync();
         await page.GotoAsync(settings.Link);
         MainPage mainPage = new MainPage(page);
@@ -53,7 +53,7 @@ public class BaseTest
         await loginPage.ClickContinueButton();
         await loginPage.FillPassword("123Qwerty");
         await loginPage.ClickLoginButton();
-
+        await page.WaitForURLAsync("**/u/testingman3/boards");
         await context.StorageStateAsync(new()
         {
             Path = "playwright/.auth/state.json"
@@ -82,6 +82,7 @@ public class BaseTest
 
         var page = await context.NewPageAsync();
         await page.GotoAsync(settings.Link);
+
         DashBoardPage dashBoard = new DashBoardPage(page);
         dashBoard.OpenCreateNewTableFormAsync().Wait();
     }

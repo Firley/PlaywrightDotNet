@@ -19,9 +19,9 @@ namespace PlaywrightTests.PageObjects
         }
 
 
-        public async Task OpenCreateNewTableFormAsync() 
+        public async Task OpenCreateNewTableFormAsync()
         {
-         await CreateNewTableTile.ClickAsync();
+            await CreateNewTableTile.ClickAsync();
         }
     }
 }
