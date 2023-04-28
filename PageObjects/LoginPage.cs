@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects
 {
-    public class LoginPage : BasePage
+    public class LoginPage
     {
 
-        ILocator EmailInput => page.GetByPlaceholder("Podaj adres e-mail");
-        ILocator ContinueButton => page.GetByRole(AriaRole.Button, new() { Name = "Kontynuuj" }).First;
-        ILocator PasswordInput => page.GetByPlaceholder("Wprowadź hasło");
-        ILocator LoginButton => page.GetByRole(AriaRole.Button, new() { Name = "Zaloguj się" });
-        public LoginPage(IPage _page) : base(_page) { }
+        ILocator EmailInput => Page.GetByPlaceholder("Podaj adres e-mail");
+        ILocator ContinueButton => Page.GetByRole(AriaRole.Button, new() { Name = "Kontynuuj" }).First;
+        ILocator PasswordInput => Page.GetByPlaceholder("Wprowadź hasło");
+        ILocator LoginButton => Page.GetByRole(AriaRole.Button, new() { Name = "Zaloguj się" });
+
+        public IPage Page { get; }
+
+        public LoginPage(IPage page)
+        {
+            Page = page;
+        }
 
         public async Task FillEmailAdress(string email)
         {
