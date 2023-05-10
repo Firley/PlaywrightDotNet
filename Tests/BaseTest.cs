@@ -11,11 +11,11 @@ namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class BaseTest
+public class BaseTest : PageTest
 {
     private IConfiguration Configuration { get; set; }
-    TestsSettings settings { get; set; } = new TestsSettings() { };
-    public string PageAddress { get; set; }
+    public TestsSettings settings { get; set; } = new TestsSettings() { };
+    public string? PageAddress { get; set; }
 
     public BaseTest()
     {
@@ -23,7 +23,7 @@ public class BaseTest
         Configuration.GetSection("LaunchSettings").Bind(settings);
     }
 
-   [OneTimeSetUp]
+    [OneTimeSetUp]
     public async Task PrepareStorageStateAsync()
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
@@ -63,29 +63,18 @@ public class BaseTest
 
     }
 
-
-    [Test]
-    public async Task CreateNewTable()
+    public override BrowserNewContextOptions ContextOptions()
     {
-        using var playwright = await Playwright.CreateAsync();
-        // Create a Chromium browser instance
-        await using var browser = await playwright.Chromium.LaunchAsync(new()
+        return new BrowserNewContextOptions()
         {
-            Headless = false,
-        });
-        await using var context = await browser.NewContextAsync(new BrowserNewContextOptions()
-        {
+            ColorScheme = ColorScheme.Light,
+            ViewportSize = new()
+            {
+                Width = 1920,
+                Height = 1080
+            },
             BaseURL = settings.Link,
-            IsMobile = true,
             StorageStatePath = "playwright/.auth/state.json"
-        });
-
-        var page = await context.NewPageAsync();
-        await page.GotoAsync(settings.Link);
-
-        DashBoardPage dashBoard = new DashBoardPage(page);
-        dashBoard.OpenCreateNewTableFormAsync().Wait();
+        };
     }
-
-
 }

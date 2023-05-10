@@ -12,7 +12,7 @@ namespace PlaywrightTests.PageObjects.Dashboard
     {
         ILocator TitleInput => Page.GetByTestId("create-board-title-input");
         ILocator BackgroundColorList => Page.GetByRole(AriaRole.Button, new() { Name = "🌊" });
-        ILocator NonStandardBackgroundColorList => Page.GetByRole(AriaRole.Button, new() { Name = "Obraz niestandardowy" }).Nth(1);
+        ILocator NonStandardBackgroundColorList => Page.GetByRole(AriaRole.Button, new() { Name = "Obraz niestandardowy" });
         public IPage Page { get; }
         public CreationOfTableSubPage(IPage page)
         {
