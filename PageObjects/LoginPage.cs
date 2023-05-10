@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects
 {
-    public class LoginPage
+    public class LoginPage : BasePage
     {
 
         ILocator EmailInput => Page.GetByPlaceholder("Podaj adres e-mail");
@@ -15,12 +15,7 @@ namespace PlaywrightTests.PageObjects
         ILocator PasswordInput => Page.GetByPlaceholder("Wprowadź hasło");
         ILocator LoginButton => Page.GetByRole(AriaRole.Button, new() { Name = "Zaloguj się" });
 
-        public IPage Page { get; }
-
-        public LoginPage(IPage page)
-        {
-            Page = page;
-        }
+        public LoginPage(IPage page) : base(page) { }
 
         public async Task FillEmailAdress(string email)
         {

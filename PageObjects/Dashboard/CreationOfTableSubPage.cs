@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects.Dashboard
 {
-    public class CreationOfTableSubPage
+    public class CreationOfTableSubPage : BasePage
     {
         ILocator TitleInput => Page.GetByTestId("create-board-title-input");
         ILocator BackgroundColorList => Page.GetByRole(AriaRole.Button, new() { Name = "🌊" });
         ILocator NonStandardBackgroundColorList => Page.GetByRole(AriaRole.Button, new() { Name = "Obraz niestandardowy" });
-        public IPage Page { get; }
-        public CreationOfTableSubPage(IPage page)
+
+        public CreationOfTableSubPage(IPage page) : base(page)
         {
-            Page = page;
         }
 
         public async Task InsertTitle(string title)

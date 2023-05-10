@@ -9,26 +9,16 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects
 {
-    public class MainPage
+    public class MainPage : BasePage
     {
 
         ILocator LoginButton => Page.GetByTestId("bignav").GetByRole(AriaRole.Link, new() { Name = "Log in" });
-
-        public IPage Page { get; }
-
-        public MainPage(IPage page)
-        {
-            Page = page;
-        }
-
-
+        public MainPage(IPage page) : base(page) { }
 
         public async Task OpenLoginPagesAsync()
         {
             await LoginButton.ClickAsync();
         }
-
-
 
     }
 }
