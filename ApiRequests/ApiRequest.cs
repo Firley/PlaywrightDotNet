@@ -18,9 +18,6 @@ namespace PlaywrightTests.ApiRequests
         {
             this.Settings = settings;
         }
-
-
-
         public async Task CreateApiRequestAsync()
         {
             var headers = new Dictionary<string, string>();
@@ -31,7 +28,5 @@ namespace PlaywrightTests.ApiRequests
                 ExtraHTTPHeaders = headers,
             });
         }
-
-        public abstract void MakeRequest(string apiKey, string stringApiToken,string route);
     }
 }

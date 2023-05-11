@@ -15,9 +15,10 @@ namespace PlaywrightTests.ApiRequests
 
         }
 
-        public override void MakeRequest(string apiKey, string stringApiToken, string route)
+        public override void MakeGETBoardRequest(string id)
         {
-            
+            var issues = await Request.GetAsync($"/{Route}/" +  id");
+            Assert.True(issues.Ok);
         }
     }
 }
