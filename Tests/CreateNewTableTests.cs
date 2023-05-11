@@ -15,13 +15,12 @@ namespace PlaywrightTests.Tests
         [Test]
         public async Task CreateNewTable()
         {
-            await Page.GotoAsync(settings.Link);
+            await Page.GotoAsync(Settings.Link);
             DashBoardPage dashBoard = new DashBoardPage(Page);
             dashBoard.OpenCreateNewTableFormAsync().Wait();
-            CreationOfTableSubPage createTileForm = new CreationOfTableSubPage(Page);
+            CreateBoardSubPage createTileForm = new CreateBoardSubPage(Page);
             await Expect(createTileForm.TitleInput).ToBeFocusedAsync();
             await createTileForm.InsertTitle(TableName);
-
         }
     }
 }

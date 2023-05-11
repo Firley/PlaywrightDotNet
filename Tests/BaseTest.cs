@@ -14,13 +14,15 @@ namespace PlaywrightTests;
 public class BaseTest : PageTest
 {
     private IConfiguration Configuration { get; set; }
-    public TestsSettings settings { get; set; } = new TestsSettings() { };
+    public TestsSettings Settings { get; set; } = new TestsSettings() { };
+    public UserCreditensials UserCreditensials { get; set; } = new UserCreditensials() { };
     public string? PageAddress { get; set; }
 
     public BaseTest()
     {
         Configuration = BuildConfig.ConfigurationRoot;
-        Configuration.GetSection("LaunchSettings").Bind(settings);
+        Configuration.GetSection("LaunchSettings").Bind(Settings);
+        Configuration.GetSection("UserCreditensials").Bind(UserCreditensials);
     }
 
     [OneTimeSetUp]
@@ -28,7 +30,7 @@ public class BaseTest : PageTest
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
         IBrowser browser;
-        switch (settings.Browser)
+        switch (Settings.Browser)
         {
             case "chromium":
                 browser = await playwright.Chromium.LaunchAsync(new() { Headless = false });
@@ -45,13 +47,13 @@ public class BaseTest : PageTest
         }
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
-        await page.GotoAsync(settings.Link);
+        await page.GotoAsync(Settings.Link);
         MainPage mainPage = new MainPage(page);
         mainPage.OpenLoginPagesAsync().Wait();
         LoginPage loginPage = new LoginPage(page);
-        await loginPage.FillEmailAdress("sejak92669@soombo.com");
+        await loginPage.FillEmailAdress(UserCreditensials.Login);
         await loginPage.ClickContinueButton();
-        await loginPage.FillPassword("123Qwerty");
+        await loginPage.FillPassword(UserCreditensials.Password);
         await loginPage.ClickLoginButton();
         await page.WaitForURLAsync("**/u/testingman3/boards");
         await context.StorageStateAsync(new()
@@ -73,7 +75,7 @@ public class BaseTest : PageTest
                 Width = 1920,
                 Height = 1080
             },
-            BaseURL = settings.Link,
+            BaseURL = Settings.Link,
             StorageStatePath = "playwright/.auth/state.json"
         };
     }
