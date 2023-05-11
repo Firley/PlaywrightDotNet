@@ -14,6 +14,7 @@ namespace PlaywrightTests.cofiguration
         public string ApiKey { get; set; } = null!;
         public string Token { get; set; } = null!;
         public string ApiUrl { get; set; } = null!;
+        public string ApiSecret { get; set; }
 
     }
 }
