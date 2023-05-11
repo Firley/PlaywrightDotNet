@@ -13,7 +13,7 @@ namespace PlaywrightTests.cofiguration
         public bool Headless { get; set; } = false;
         public string ApiKey { get; set; } = null!;
         public string Token { get; set; } = null!;
-        public string ApiUrl { get; set; }
+        public string ApiUrl { get; set; } = null!;
 
     }
 }
