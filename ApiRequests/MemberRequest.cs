@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using PlaywrightTests.ApiRequests.Models;
 using PlaywrightTests.cofiguration;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,10 @@ namespace PlaywrightTests.ApiRequests
 
         }
 
-        public override async Task MakeGETBoardRequestAsync(string userId)
+        public async Task<GetBoardsResponse> MakeGetMemberBoardsRequestAsync(string userId)
         {
             var issues = await Request.GetAsync($"{Route}/" + userId + "/boards" + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+            return await issues.JsonAsync<GetBoardsResponse>();
         }
 
 
