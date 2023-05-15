@@ -14,6 +14,8 @@ namespace PlaywrightTests.ApiRequests
     {
         protected IAPIRequestContext Request = null!;
         public TestsSettings Settings { get; }
+
+        protected abstract string Route { get; }
         public ApiRequest(TestsSettings settings)
         {
             this.Settings = settings;

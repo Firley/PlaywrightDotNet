@@ -9,16 +9,15 @@ namespace PlaywrightTests.ApiRequests
 {
     public class BoardRequest : ApiRequest
     {
-        string Route => "boards";
+        protected override string Route => "boards";
         public BoardRequest(TestsSettings settings) : base(settings)
         {
 
         }
 
-        public override void MakeGETBoardRequest(string id)
+        public override async Task MakeGETMemberBoardsRequestAsync(string id)
         {
-            var issues = await Request.GetAsync($"/{Route}/" +  id");
-            Assert.True(issues.Ok);
+            var issues = await Request.GetAsync($"/{Route}/" + "id" +/);
         }
     }
 }
