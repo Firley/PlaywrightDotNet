@@ -15,9 +15,9 @@ namespace PlaywrightTests.ApiRequests
 
         }
 
-        public override async Task MakeGETMemberBoardsRequestAsync(string id)
+        public sasync Task MakeGETBoardRequestAsync(string id)
         {
-            var issues = await Request.GetAsync($"/{Route}/" + "id" +/);
+            var issues = await Request.GetAsync($"/{Route}/" + "id" + $"? {Settings.ApiKey}" + "&" + Settings.Token);
         }
     }
 }
