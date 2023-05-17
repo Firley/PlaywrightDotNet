@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.ApiRequests
 {
-    public class BoardRequest : ApiRequest
+    public class BoardRequests : ApiRequest
     {
         protected override string Route => "boards";
-        public BoardRequest(TestsSettings settings) : base(settings)
+        public BoardRequests(TestsSettings settings) : base(settings)
         {
 
         }
 
-        public async Task MakeGETBoardRequestAsync(string id)
+        public async Task MakeGETBoardRequestAsync(string BoardId)
         {
-            var issues = await Request.GetAsync($"/{Route}/" + "id" + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+            var issues = await Request.GetAsync($"/{Route}/" + BoardId + $"? {Settings.ApiKey}" + "&" + Settings.Token);
         }
     }
 }

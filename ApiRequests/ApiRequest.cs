@@ -19,8 +19,9 @@ namespace PlaywrightTests.ApiRequests
         public ApiRequest(TestsSettings settings)
         {
             this.Settings = settings;
+            CreateApiRequestAsync()
         }
-        public async Task CreateApiRequestAsync()
+        protected async Task CreateApiRequestAsync()
         {
             var headers = new Dictionary<string, string>();
             headers.Add("Accept", "application/json");

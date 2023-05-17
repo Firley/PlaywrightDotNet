@@ -17,10 +17,11 @@ namespace PlaywrightTests.ApiRequests
 
         }
 
-        public async Task<GetBoardsResponse> MakeGetMemberBoardsRequestAsync(string userId)
+        public async Task<GetMemberBoardsResponse> GetMemberBoardsAsync()
         {
-            var issues = await Request.GetAsync($"{Route}/" + userId + "/boards" + $"? {Settings.ApiKey}" + "&" + Settings.Token);
-            return await issues.JsonAsync<GetBoardsResponse>();
+            await CreateApiRequestAsync();
+            var issues = await Request.GetAsync($"{Route}/" + Settings.UserId + "/boards" + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+            return await issues.JsonAsync<GetMemberBoardsResponse>();
         }
 
 

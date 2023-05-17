@@ -25,26 +25,17 @@ public class BaseTest : PageTest
         Configuration.GetSection("UserCreditensials").Bind(UserCreditensials);
     }
 
-    [OneTimeSetUp]
+  //  [OneTimeSetUp]
     public async Task PrepareStorageStateAsync()
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
-        IBrowser browser;
-        switch (Settings.Browser)
+        IBrowser browser = Settings.Browser switch
         {
-            case "chromium":
-                browser = await playwright.Chromium.LaunchAsync(new() { Headless = false });
-                break;
-            case "msedge":
-                browser = await playwright.Chromium.LaunchAsync(new() { Channel = "msedge", Headless = false });
-                break;
-            case "firefox":
-                browser = await playwright.Firefox.LaunchAsync(new() { Headless = true });
-                break;
-            default:
-                browser = await playwright.Chromium.LaunchAsync(new() { Headless = true });
-                break;
-        }
+            "chromium" => await playwright.Chromium.LaunchAsync(new() { Headless = false }),
+            "msedge" => await playwright.Chromium.LaunchAsync(new() { Channel = "msedge", Headless = false }),
+            "firefox" => await playwright.Firefox.LaunchAsync(new() { Headless = true }),
+            _ => await playwright.Chromium.LaunchAsync(new() { Headless = true }),
+        };
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
         await page.GotoAsync(Settings.Link);
@@ -55,7 +46,7 @@ public class BaseTest : PageTest
         await loginPage.ClickContinueButton();
         await loginPage.FillPassword(UserCreditensials.Password);
         await loginPage.ClickLoginButton();
-        await page.WaitForURLAsync("**/u/testingman3/boards");
+        await page.WaitForURLAsync($"**/u/{Settings.UserId}/boards");
         await context.StorageStateAsync(new()
         {
             Path = "playwright/.auth/state.json"
