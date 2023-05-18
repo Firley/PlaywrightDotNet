@@ -17,12 +17,10 @@ namespace PlaywrightTests.ApiRequests
         {
         }
 
-        public async Task<IEnumerable<Board>> GetMemberBoardsAsync()
+        public async Task<IAPIResponse> GetMemberBoardsAsync()
         {
             await CreateApiRequestContextAsync();
-            var issues = await RequestContext.GetAsync($"{Route}/" + Settings.UserId + "/boards" + $"?key={Settings.ApiKey}" + "&token=" + Settings.Token);
-            var json = await issues.JsonAsync();
-            return JsonConvert.DeserializeObject<List<Board>>(await issues.TextAsync()) ?? new List<Board>(); 
+            return await RequestContext.GetAsync($"{Route}/" + Settings.UserId + "/boards" + $"?key={Settings.ApiKey}" + "&token=" + Settings.Token);   
         }
 
 

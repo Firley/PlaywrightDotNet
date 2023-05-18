@@ -42,7 +42,19 @@ public class CreateNewTableTests : BaseTest
         var getBoardsReponse = await request.GetMemberBoardsAsync();
         var boards = JsonConvert.DeserializeObject<List<Board>>(await getBoardsReponse.TextAsync()) ?? new List<Board>();
         Assert.That(boards.Where(b => b.Name == TableName).Count(), Is.EqualTo(1));
-   }
+    }
 
     [TearDown]
+    public async Task DeleteNewTable()
+    {
+        var request = new MemberRequest(Settings, Playwright.APIRequest);
+        var getBoardsReponse = await request.GetMemberBoardsAsync();
+        var boards = JsonConvert.DeserializeObject<List<Board>>(await getBoardsReponse.TextAsync())?.Where(b => b.Name == TableName) ?? new List<Board>(); 
+        var boardRequest = new BoardRequest(Settings, Playwright.APIRequest);
+        foreach (var board in boards)
+        {
+            await boardRequest.DeleteBoardRequestAsync(board.Id);
+        }
+    }
+
 }

@@ -16,14 +16,18 @@ namespace PlaywrightTests.ApiRequests
 
         }
 
-        public async Task GetBoardRequestAsync(string BoardId)
+        public async Task<IAPIResponse> GetBoardRequestAsync(string BoardId)
         {
-            var issues = await RequestContext.GetAsync($"/{Route}/" + BoardId + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+            await CreateApiRequestContextAsync();
+            return await RequestContext.GetAsync($"{Route}/" + BoardId + $"?key={Settings.ApiKey}" + "&token=" + Settings.Token);
         }
 
-        public async Task DeleteBoardRequestAsync(string BoardId)
+        public async Task<IAPIResponse> DeleteBoardRequestAsync(string BoardId)
         {
-            var issues = await RequestContext.DeleteAsync($"/{Route}/" + BoardId + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+            await CreateApiRequestContextAsync(); 
+            return await RequestContext.DeleteAsync($"{Route}/" + BoardId + $"?key={Settings.ApiKey}" + "&token=" + Settings.Token);
+
         }
+
     }
 }
