@@ -10,22 +10,23 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.ApiRequests
 {
-    public abstract class ApiRequest : PlaywrightTest
+    public abstract class ApiRequest
     {
-        protected IAPIRequestContext Request = null!;
+        protected IAPIRequestContext RequestContext = null!;
+        protected IAPIRequest request = null!;
         public TestsSettings Settings { get; }
 
         protected abstract string Route { get; }
-        public ApiRequest(TestsSettings settings)
+        public ApiRequest(TestsSettings settings, IAPIRequest request)
         {
             this.Settings = settings;
-            CreateApiRequestAsync()
+            this.request = request;
         }
-        protected async Task CreateApiRequestAsync()
+        public async Task CreateApiRequestContextAsync()
         {
             var headers = new Dictionary<string, string>();
             headers.Add("Accept", "application/json");
-            Request = await Playwright.APIRequest.NewContextAsync(new()
+            RequestContext = await request.NewContextAsync(new()
             {
                 BaseURL = Settings.ApiUrl,
                 ExtraHTTPHeaders = headers,

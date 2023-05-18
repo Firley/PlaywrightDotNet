@@ -1,10 +1,5 @@
 ﻿namespace PlaywrightTests.ApiRequests.Models;
 
-public class GetMemberBoardsResponse
-{
-    public Board[]? Boards { get; set; }
-}
-
 public class Board
 {
     public string? Id { get; set; }
