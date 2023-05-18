@@ -8,17 +8,22 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.ApiRequests
 {
-    public class BoardRequests : ApiRequest
+    public class BoardRequest : ApiRequest
     {
         protected override string Route => "boards";
-        public BoardRequests(TestsSettings settings, IAPIRequest request) : base(settings, request)
+        public BoardRequest(TestsSettings settings, IAPIRequest request) : base(settings, request)
         {
 
         }
 
-        public async Task MakeGETBoardRequestAsync(string BoardId)
+        public async Task GetBoardRequestAsync(string BoardId)
         {
             var issues = await RequestContext.GetAsync($"/{Route}/" + BoardId + $"? {Settings.ApiKey}" + "&" + Settings.Token);
+        }
+
+        public async Task DeleteBoardRequestAsync(string BoardId)
+        {
+            var issues = await RequestContext.DeleteAsync($"/{Route}/" + BoardId + $"? {Settings.ApiKey}" + "&" + Settings.Token);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using Newtonsoft.Json;
 using PlaywrightTests.ApiRequests;
 using PlaywrightTests.ApiRequests.Models;
 using PlaywrightTests.PageObjects;
@@ -38,7 +39,10 @@ public class CreateNewTableTests : BaseTest
         await createTileForm.SelectNonStandardColor(1);
 
         var request = new MemberRequest(Settings, Playwright.APIRequest);
-        var boards = await request.GetMemberBoardsAsync();
+        var getBoardsReponse = await request.GetMemberBoardsAsync();
+        var boards = JsonConvert.DeserializeObject<List<Board>>(await getBoardsReponse.TextAsync()) ?? new List<Board>();
         Assert.That(boards.Where(b => b.Name == TableName).Count(), Is.EqualTo(1));
    }
+
+    [TearDown]
 }
