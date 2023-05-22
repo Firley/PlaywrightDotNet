@@ -31,12 +31,12 @@ public class CreateNewTableTests : BaseTest
         await Expect(createTileForm.BackgroundColorList).ToHaveCountAsync(6);
         await Expect(createTileForm.TitleInputLabel).ToBeVisibleAsync();
         await Expect(createTileForm.TitleInput).ToBeFocusedAsync();
-
+        await createTileForm.SelectNonStandardColor(1);
         await Expect(createTileForm.CreateBoardSubmitButton).ToBeDisabledAsync();
         await createTileForm.InsertTitle(TableName);
         await Expect(createTileForm.CreateBoardSubmitButton).ToBeEnabledAsync();
         await createTileForm.ClickSubmitButton();
-        await createTileForm.SelectNonStandardColor(1);
+
 
         var request = new MemberRequest(Settings, Playwright.APIRequest);
         var getBoardsReponse = await request.GetMemberBoardsAsync();

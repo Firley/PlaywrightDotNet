@@ -23,7 +23,7 @@ public class BaseTest : PageTest
         Configuration.GetSection("UserCreditensials").Bind(UserCreditensials);
     }
 
-    [OneTimeSetUp]
+ //   [OneTimeSetUp]
     public async Task PrepareStorageStateAsync()
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
