@@ -47,7 +47,7 @@ public class BaseTest : PageTest
         await page.WaitForURLAsync($"**/u/{Settings.UserId}/boards");
         await context.StorageStateAsync(new()
         {
-            Path = "playwright/.auth/state.json"
+            Path = "state.json"
         });
         // Dispose context once it is no longer needed.
         await context.CloseAsync();
