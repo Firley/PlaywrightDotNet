@@ -26,7 +26,7 @@ public class BaseTest : PageTest
         Configuration.GetSection("UserCreditensials").Bind(UserCreditensials);
     }
 
- //   [OneTimeSetUp]
+    [OneTimeSetUp]
     public async Task PrepareStorageStateAsync()
     {
         using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
@@ -52,7 +52,7 @@ public class BaseTest : PageTest
         {
             Path = "state.json"
         });
-        // Dispose context once it is no longer needed.
+
         await context.CloseAsync();
 
     }
