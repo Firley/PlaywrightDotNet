@@ -10,7 +10,9 @@ namespace PlaywrightTests.cofiguration
     public static class BuildConfig
     {
         private static IConfigurationRoot _configuration;
+
         public static IConfigurationRoot ConfigurationRoot { get { return _configuration; } }
+
         static BuildConfig()
         {
             var environmentName = Environment.GetEnvironmentVariable("env");
@@ -22,6 +24,5 @@ namespace PlaywrightTests.cofiguration
 
             _configuration = config.Build();
         }
-
     }
 }
