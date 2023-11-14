@@ -1,20 +1,15 @@
-﻿using Microsoft.Playwright;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PlaywrightTests.ApiRequests;
 using PlaywrightTests.ApiRequests.Models;
 using PlaywrightTests.PageObjects;
 using PlaywrightTests.PageObjects.Dashboard;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlaywrightTests.Tests;
 
 public class CreateNewTableTests : BaseTest
 {
     public string TableName { get; set; } = "Table1";
+
     [Test]
     public async Task CreateNewTable()
     {
@@ -37,7 +32,6 @@ public class CreateNewTableTests : BaseTest
         await Expect(createTileForm.CreateBoardSubmitButton).ToBeEnabledAsync();
         await createTileForm.ClickSubmitButton();
 
-
         var request = new MemberRequest(Settings, Playwright.APIRequest);
         var getBoardsReponse = await request.GetMemberBoardsAsync();
         var boards = JsonConvert.DeserializeObject<List<Board>>(await getBoardsReponse.TextAsync()) ?? new List<Board>();
@@ -51,10 +45,10 @@ public class CreateNewTableTests : BaseTest
         var getBoardsReponse = await request.GetMemberBoardsAsync();
         var boards = JsonConvert.DeserializeObject<List<Board>>(await getBoardsReponse.TextAsync())?.Where(b => b.Name == TableName) ?? new List<Board>(); 
         var boardRequest = new BoardRequest(Settings, Playwright.APIRequest);
+
         foreach (var board in boards)
         {
             await boardRequest.DeleteBoardRequestAsync(board.Id);
         }
     }
-
 }

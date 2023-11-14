@@ -14,8 +14,11 @@ namespace PlaywrightTests;
 public class BaseTest : PageTest
 {
     private IConfiguration Configuration { get; set; }
+
     public TestsSettings Settings { get; set; } = new TestsSettings() { };
+
     public UserCreditensials UserCreditensials { get; set; } = new UserCreditensials() { };
+
     public BaseTest()
     {
         Configuration = BuildConfig.ConfigurationRoot;
@@ -65,7 +68,7 @@ public class BaseTest : PageTest
                 Height = 1080
             },
             BaseURL = Settings.Link,
-            StorageStatePath = "playwright/.auth/state.json",            
+            StorageStatePath = "state.json",            
         };
     }
 }

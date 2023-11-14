@@ -11,10 +11,7 @@ namespace PlaywrightTests.PageObjects
     {
         public ILocator CreateNewTableTile => Page.GetByTestId("create-board-tile");
 
-        public DashBoardPage(IPage page) : base(page)
-        {
-        }
-
+        public DashBoardPage(IPage page) : base(page) { }
 
         public async Task OpenCreateNewTableFormAsync()
         {

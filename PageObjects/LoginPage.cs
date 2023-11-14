@@ -11,8 +11,11 @@ namespace PlaywrightTests.PageObjects
     {
 
         ILocator EmailInput => Page.GetByPlaceholder("Podaj adres e-mail");
+
         ILocator ContinueButton => Page.GetByRole(AriaRole.Button, new() { Name = "Kontynuuj" }).First;
+
         ILocator PasswordInput => Page.GetByPlaceholder("Wprowadź hasło");
+
         ILocator LoginButton => Page.GetByRole(AriaRole.Button, new() { Name = "Zaloguj się" });
 
         public LoginPage(IPage page) : base(page) { }
@@ -21,6 +24,7 @@ namespace PlaywrightTests.PageObjects
         {
           await EmailInput.FillAsync(email);
         }
+
         public async Task ClickContinueButton()
         {
           await ContinueButton.ClickAsync();

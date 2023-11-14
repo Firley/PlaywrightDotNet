@@ -13,10 +13,13 @@ namespace PlaywrightTests.ApiRequests
     public abstract class ApiRequest
     {
         protected IAPIRequestContext RequestContext = null!;
+
         protected IAPIRequest request = null!;
+
         public TestsSettings Settings { get; }
 
         protected abstract string Route { get; }
+
         public ApiRequest(TestsSettings settings, IAPIRequest request)
         {
             this.Settings = settings;
