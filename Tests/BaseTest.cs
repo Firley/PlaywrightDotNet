@@ -1,11 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
-using NUnit.Framework;
 using PlaywrightTests.cofiguration;
 using PlaywrightTests.PageObjects;
-using PlaywrightTests.PageObjects.Dashboard;
-using System.Configuration;
 
 namespace PlaywrightTests;
 
